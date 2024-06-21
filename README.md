@@ -3,29 +3,38 @@
 # GitHub Usage Stats
 
 ## Description
-Scripts to capture GitHub repository and usage statistics daily. It is designed to get statistics for all repos under a GitHub Enterprise-licensed organization, but it should also work for personal repositories.  
-The PowerShell script was moved here from its previous location at: [https://github.com/DepressionCenter/MTC-Internal-Tools-and-Automation.](https://github.com/DepressionCenter/MTC-Internal-Tools-and-Automation/blob/main/PowerShell%20Scripts/ExportGitHubUsageStatsForOrganization.ps1)
+Scripts to capture GitHub repository and usage statistics daily, for all repositories under an organization that uses GitHub Enterprise. Simply download the PowerShell script, edit the settings towards the top of the file (file paths, API key, Organization name, etc.), and run it. You can also schedule it as a Windows Task, or import into a database with an external ETL or ELT tool.
 
+![GitHub Usage Stats Sample Screenshot](https://github.com/DepressionCenter/GitHub-Usage-Stats/blob/main/images/GitHub-Usage-Stats-Output-Example.png?raw=true "Sample output from this GitHub Usage Stats script.")
 
 
 ## Quick Start Guide
-+ Get an API key from the Organization you want to use (with read permissions). This must be done by an admin of the organization. If running this for personal repos, get an API key from yur own account
-+ Install the PowerShellForGitHub module in PowerShell for the system, or for the user who will run the script
-+ Download the PowerShell script (ExportGitHubUsageStatsForOrganization.ps1)
-+ Edit the settings at the top of the script, including the Organization Name variable
-+ Create a directory for the output files, c:\GitHubStats, or as configured in previous step
-+ Run the script in PowerShell
++ Get a GitHub API key with read permissions to your organization.
++ Set GITHUB_USERNAME and GITHUB_API_KEY in the system environment variables
++ Install the PowerShellForGitHub module in PowerShell.
++ Download the PowerShell script (ExportGitHubUsageStatsForOrganization.ps1).
++ Edit the settings at the top of the script, including the Organization Name variable.
++ Create a directory for the output files, c:\GitHubStats, or as configured in previous step.
++ Run the script in PowerShell.
 + Grab the CSV or JSON files from the output directory. Files are replaced except for the "rolling" file which appends to previous days' data.
-+ Optional step: Use Windows Scheduler to run the script daily, and make the output directory a file share with appropriate permissions.
 
 
 
 ## Documentation
+
+### General Information
 + The statistics will be dumped into both CSV and JSON files in the output directory, including:
-  + **{efdc}-github-stats.csv** - today's snapshot in CSV format; web traffic goes back 14 days. File is replaced at each run.
-  + **{efdc}-github-stats.json** - today's snapshot in JSON format; web traffic goes back 14 days. File is replaced at each run.
-  + **{efdc}-github-stats-rolling.csv** - stoday's snapshot added to the same CSV, without deleting previous data.
-+ All the counts are 14-day totals, not for an individual day.
+  + **github-stats-{OrganizationName}.csv** - today's snapshot in CSV format. File is replaced at each run. Recommended for loading into a database.
+  + **github-stats-{OrganizationName}.json** - today's snapshot in JSON format. File is replaced at each run. Recommended for loading into a database.
+  + **github-stats-detailed-{OrganizationName}.json** - today's snapshot in JSON format, with all detailed included. File is replaced at each run. It can be used for debugging and troubleshooting.
+  + **github-stats-rolling-{OrganizationName}.csv** - today's snapshot added to the same CSV, without deleting previous data. This file can be used to create reports directly in Excel, Tableau, PowerBI, etc. without the need for a database.
++ All the counts not labeled "yesterday" are 14-day totals, not for an individual day. 
++ Note that all dates and times are in universal time (UTC), in the GMT time zone.
+
+### Loading Into a Database
++ The script(s) under the SQL folder can be used to create a table to host and accumulate the data.
++ + Currently, the only script(s) available are for Oracle databases. Some work maybe required to use a different database engine.
++ The PowerShell script does not currently save to the database directly. A data pipeline is needed to load the data into a database.
 
 
 ## Additional Resources
