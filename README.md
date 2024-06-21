@@ -1,28 +1,41 @@
 ![Depression Center Logo](https://github.com/DepressionCenter/.github/blob/main/images/EFDCLogo_375w.png "depressioncenter.org")
 
-# <Repository Title>
+# GitHub Usage Stats
 
 ## Description
-This is the code repository for <program/library name>, a <program/library> for (description of what it does).
+Scripts to capture GitHub repository and usage statistics daily. It is designed to get statistics for all repos under a GitHub Enterprise-licensed organization, but it should also work for personal repositories.  
+The PowerShell script was moved here from its previous location at: [https://github.com/DepressionCenter/MTC-Internal-Tools-and-Automation.](https://github.com/DepressionCenter/MTC-Internal-Tools-and-Automation/blob/main/PowerShell%20Scripts/ExportGitHubUsageStatsForOrganization.ps1)
 
 
 
 ## Quick Start Guide
-<Quick compile/run instructions>
++ Get an API key from the Organization you want to use (with read permissions). This must be done by an admin of the organization. If running this for personal repos, get an API key from yur own account
++ Install the PowerShellForGitHub module in PowerShell for the system, or for the user who will run the script
++ Download the PowerShell script (ExportGitHubUsageStatsForOrganization.ps1)
++ Edit the settings at the top of the script, including the Organization Name variable
++ Create a directory for the output files, c:\GitHubStats, or as configured in previous step
++ Run the script in PowerShell
++ Grab the CSV or JSON files from the output directory. Files are replaced except for the "rolling" file which appends to previous days' data.
++ Optional step: Use Windows Scheduler to run the script daily, and make the output directory a file share with appropriate permissions.
 
 
 
 ## Documentation
-<Links to manual, wiki, full documentation, etc.>
++ The statistics will be dumped into both CSV and JSON files in the output directory, including:
+  + **{efdc}-github-stats.csv** - today's snapshot in CSV format; web traffic goes back 14 days. File is replaced at each run.
+  + **{efdc}-github-stats.json** - today's snapshot in JSON format; web traffic goes back 14 days. File is replaced at each run.
+  + **{efdc}-github-stats-rolling.csv** - stoday's snapshot added to the same CSV, without deleting previous data.
++ All the counts are 14-day totals, not for an individual day.
 
 
 ## Additional Resources
-<Links to study website, related projects, etc.>
++ [GitHub API Documentation](https://docs.github.com/en/rest/metrics?apiVersion=2022-11-28)
++ [Microsoft's PowerShell wrapper](https://github.com/microsoft/PowerShellForGitHub) for the GitHub API
 
 
 
 ## About the Team
-< 1-2 paragraphs about your core, study team, class or project. >
+The Mobile Technologies Core provides investigators across the University of Michigan the support and guidance needed to utilize mobile technologies and digital mental health measures in their studies. Experienced faculty and staff offer hands-on consultative services to researchers throughout the University – regardless of specialty or research focus.
 
 
 
@@ -37,12 +50,12 @@ If you need assistance identifying a contact person, email the EFDC's Mobile Tec
 #### Contributors:
 + Eisenberg Family Depression Center [(@DepressionCenter)](https://github.com/DepressionCenter/)
 + Gabriel Mongefranco [(@gabrielmongefranco)](https://github.com/gabrielmongefranco)
++ Special thanks to the U-M "HITS Academic Integrations" team and Joe Lipa for creating a data pipeline to load this script into a database.
 
 
 
 #### This work is based in part on the following projects, libraries and/or studies:
-+ None
-
++ Microsoft's [PowerShellForGitHub](https://github.com/microsoft/PowerShellForGitHub) module for PowerShell
 
 
 ## License
