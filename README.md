@@ -32,9 +32,14 @@ Scripts to capture GitHub repository and usage statistics daily, for all reposit
 + Note that all dates and times are in universal time (UTC), in the GMT time zone.
 
 ### Loading Into a Database
-+ The script(s) under the SQL folder can be used to create a table to host and accumulate the data.
++ The script(s) under the SQL folder can be used to create a table to host and accumulate the data. It includes SQL comments for most columns to use in a data dictionary.
 + + Currently, the only script(s) available are for Oracle databases. Some work maybe required to use a different database engine.
 + The PowerShell script does not currently save to the database directly. A data pipeline is needed to load the data into a database.
+
+### Creating visualizations
++ Although outside the scope of this project, it is worth mentioning that the table created from CSV can be used as-is in visualization tools like Tableau or PowerBI. It can also be further normalized or transformed into a star schema for reporting.
++ Example of visualizations for repo usage in Tableau (using v1.0 of the script):
+![EFDC GitHub Stats](https://github.com/DepressionCenter/GitHub-Usage-Stats/assets/42566461/87b98058-606c-4c00-a89f-a96d354266f2)
 
 
 ## Additional Resources
