@@ -9,27 +9,26 @@ Scripts to capture GitHub repository and usage statistics daily, for all reposit
 
 
 ## Quick Start Guide
-+ Get a GitHub API key with read permissions to your organization.
-+ Set GITHUB_USERNAME and GITHUB_API_KEY in the system environment variables
-+ Install the PowerShellForGitHub module in PowerShell.
-+ Download the PowerShell script (ExportGitHubUsageStatsForOrganization.ps1).
-+ Edit the settings at the top of the script, including the Organization Name variable.
-+ Create a directory for the output files, c:\GitHubStats, or as configured in previous step.
-+ Run the script in PowerShell.
-+ Grab the CSV or JSON files from the output directory. Files are replaced except for the "rolling" file which appends to previous days' data.
++ Set GITHUB_USERNAME and GITHUB_API_KEY in the system environment variables.
++ Download the PowerShell script (ExportGitHubUsageStatsForOrganization.ps1). In addition, install the PowerShellForGitHub module.
++ Edit the settings at the top of the script, and run it.
++ Grab the CSV or JSON files from the output directory. Files are replaced at each run, except for the "rolling" file which appends to previous days' data.
 
 
 
 ## Documentation
 
-### General Information
+### Detailed Instructions
++ Detailed setup and use instructions are available in the companion knowledge base article, [Gathering GitHub Usage and Web Traffic Data](https://teamdynamix.umich.edu/TDClient/210/DepressionCenter/KB/ArticleDet?ID=12311).
+
+### General Notes
 + The statistics will be dumped into both CSV and JSON files in the output directory, including:
   + **github-stats-{OrganizationName}.csv** - today's snapshot in CSV format. File is replaced at each run. Recommended for loading into a database.
   + **github-stats-{OrganizationName}.json** - today's snapshot in JSON format. File is replaced at each run. Recommended for loading into a database.
   + **github-stats-detailed-{OrganizationName}.json** - today's snapshot in JSON format, with all detailed included. File is replaced at each run. It can be used for debugging and troubleshooting.
   + **github-stats-rolling-{OrganizationName}.csv** - today's snapshot added to the same CSV, without deleting previous data. This file can be used to create reports directly in Excel, Tableau, PowerBI, etc. without the need for a database.
 + All the counts not labeled "yesterday" are 14-day totals, not for an individual day. 
-+ Note that all dates and times are in universal time (UTC), in the GMT time zone.
++ Note that all dates and times are in universal time (UTC), in the GMT time zone (+00:00). That's because GitHub uses GMT to mark a "day" - the most granular time period available - and by keeping things in GMT, reporting becomes easier.
 
 ### Loading Into a Database
 + The script(s) under the SQL folder can be used to create a table to host and accumulate the data. It includes SQL comments for most columns to use in a data dictionary.
@@ -43,8 +42,9 @@ Scripts to capture GitHub repository and usage statistics daily, for all reposit
 
 
 ## Additional Resources
-+ [GitHub API Documentation](https://docs.github.com/en/rest/metrics?apiVersion=2022-11-28)
-+ [Microsoft's PowerShell wrapper](https://github.com/microsoft/PowerShellForGitHub) for the GitHub API
++ Companion knowledge base article: [Gathering GitHub Usage and Web Traffic Data](https://teamdynamix.umich.edu/TDClient/210/DepressionCenter/KB/ArticleDet?ID=12311)..
++ [GitHub API Documentation](https://docs.github.com/en/rest/metrics?apiVersion=2022-11-28).
++ [Microsoft's PowerShell wrapper](https://github.com/microsoft/PowerShellForGitHub) for the GitHub API.
 
 
 
@@ -69,7 +69,8 @@ If you need assistance identifying a contact person, email the EFDC's Mobile Tec
 
 
 #### This work is based in part on the following projects, libraries and/or studies:
-+ Microsoft's [PowerShellForGitHub](https://github.com/microsoft/PowerShellForGitHub) module for PowerShell
++ Microsoft's [PowerShellForGitHub](https://github.com/microsoft/PowerShellForGitHub) module for PowerShell.
++ GitHUB's [API](https://docs.github.com/en/rest/metrics/traffic).
 
 
 ## License
